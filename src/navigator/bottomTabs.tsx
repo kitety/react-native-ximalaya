@@ -6,6 +6,7 @@ import {
   useNavigationState,
 } from '@react-navigation/native';
 import { useEffect } from 'react';
+import Icon from '~/assets/iconfont';
 import Account from '~/pages/account';
 import Found from '~/pages/found';
 import Home from '~/pages/home';
@@ -63,6 +64,9 @@ const BottomTabs = () => {
         component={Home}
         options={{
           tabBarLabel: '首页',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name='icon-shouye' size={size} color={color} />
+          ),
         }}
       />
       <Tab.Screen
@@ -70,6 +74,9 @@ const BottomTabs = () => {
         component={Listen}
         options={{
           tabBarLabel: '我听',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name='icon-shoucang' size={size} color={color} />
+          ),
         }}
       />
       <Tab.Screen
@@ -77,6 +84,9 @@ const BottomTabs = () => {
         component={Found}
         options={{
           tabBarLabel: '发现',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name='icon-faxian' size={size} color={color} />
+          ),
         }}
       />
       <Tab.Screen
@@ -84,6 +94,9 @@ const BottomTabs = () => {
         component={Account}
         options={{
           tabBarLabel: '我的',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name='icon-user' size={size} color={color} />
+          ),
         }}
       />
     </Tab.Navigator>

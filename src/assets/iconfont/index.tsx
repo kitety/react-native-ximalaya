@@ -4,76 +4,76 @@
 import React, { FunctionComponent } from 'react';
 import { ViewProps } from 'react-native';
 import { GProps } from 'react-native-svg';
-import IconHomeSelect from './IconHomeSelect';
-import IconYemianCopyCopy from './IconYemianCopyCopy';
-import IconShouye1 from './IconShouye1';
-import IconVolumeUp from './IconVolumeUp';
-import IconFavoritesFill from './IconFavoritesFill';
-import IconVolumeOff from './IconVolumeOff';
-import IconPause from './IconPause';
-import IconPlayArrow from './IconPlayArrow';
-import IconFullscreen from './IconFullscreen';
-import IconLijitingke from './IconLijitingke';
-import IconBofang3 from './IconBofang3';
-import IconWeibiaoti519 from './IconWeibiaoti519';
-import IconShangyishou from './IconShangyishou';
-import IconXiayishou from './IconXiayishou';
-import IconWeibiaoti35 from './IconWeibiaoti35';
-import IconFanhui from './IconFanhui';
-import IconFanhui1 from './IconFanhui1';
-import IconHuanyipi from './IconHuanyipi';
-import IconQunfengcainixihuanxian from './IconQunfengcainixihuanxian';
-import IconTubiao from './IconTubiao';
-import IconShengyin from './IconShengyin';
-import IconShengyin1 from './IconShengyin1';
-import IconV from './IconV';
 import IconAddSelect from './IconAddSelect';
-import IconUser from './IconUser';
 import IconBofang from './IconBofang';
-import IconBofangsanjiaoxing from './IconBofangsanjiaoxing';
-import IconTimeIcon from './IconTimeIcon';
-import IconMessage from './IconMessage';
 import IconBofang1 from './IconBofang1';
 import IconBofang2 from './IconBofang2';
+import IconBofang3 from './IconBofang3';
+import IconBofangsanjiaoxing from './IconBofangsanjiaoxing';
+import IconFanhui from './IconFanhui';
+import IconFanhui1 from './IconFanhui1';
+import IconFavoritesFill from './IconFavoritesFill';
 import IconFaxian from './IconFaxian';
+import IconFullscreen from './IconFullscreen';
+import IconHomeSelect from './IconHomeSelect';
+import IconHuanyipi from './IconHuanyipi';
+import IconLijitingke from './IconLijitingke';
+import IconMessage from './IconMessage';
+import IconPause from './IconPause';
+import IconPlayArrow from './IconPlayArrow';
+import IconQunfengcainixihuanxian from './IconQunfengcainixihuanxian';
+import IconShangyishou from './IconShangyishou';
+import IconShengyin from './IconShengyin';
+import IconShengyin1 from './IconShengyin1';
 import IconShijian from './IconShijian';
-import IconShouye from './IconShouye';
 import IconShoucang from './IconShoucang';
-export { default as IconHomeSelect } from './IconHomeSelect';
-export { default as IconYemianCopyCopy } from './IconYemianCopyCopy';
-export { default as IconShouye1 } from './IconShouye1';
-export { default as IconVolumeUp } from './IconVolumeUp';
-export { default as IconFavoritesFill } from './IconFavoritesFill';
-export { default as IconVolumeOff } from './IconVolumeOff';
-export { default as IconPause } from './IconPause';
-export { default as IconPlayArrow } from './IconPlayArrow';
-export { default as IconFullscreen } from './IconFullscreen';
-export { default as IconLijitingke } from './IconLijitingke';
-export { default as IconBofang3 } from './IconBofang3';
-export { default as IconWeibiaoti519 } from './IconWeibiaoti519';
-export { default as IconShangyishou } from './IconShangyishou';
-export { default as IconXiayishou } from './IconXiayishou';
-export { default as IconWeibiaoti35 } from './IconWeibiaoti35';
-export { default as IconFanhui } from './IconFanhui';
-export { default as IconFanhui1 } from './IconFanhui1';
-export { default as IconHuanyipi } from './IconHuanyipi';
-export { default as IconQunfengcainixihuanxian } from './IconQunfengcainixihuanxian';
-export { default as IconTubiao } from './IconTubiao';
-export { default as IconShengyin } from './IconShengyin';
-export { default as IconShengyin1 } from './IconShengyin1';
-export { default as IconV } from './IconV';
+import IconShouye from './IconShouye';
+import IconShouye1 from './IconShouye1';
+import IconTimeIcon from './IconTimeIcon';
+import IconTubiao from './IconTubiao';
+import IconUser from './IconUser';
+import IconV from './IconV';
+import IconVolumeOff from './IconVolumeOff';
+import IconVolumeUp from './IconVolumeUp';
+import IconWeibiaoti35 from './IconWeibiaoti35';
+import IconWeibiaoti519 from './IconWeibiaoti519';
+import IconXiayishou from './IconXiayishou';
+import IconYemianCopyCopy from './IconYemianCopyCopy';
 export { default as IconAddSelect } from './IconAddSelect';
-export { default as IconUser } from './IconUser';
 export { default as IconBofang } from './IconBofang';
-export { default as IconBofangsanjiaoxing } from './IconBofangsanjiaoxing';
-export { default as IconTimeIcon } from './IconTimeIcon';
-export { default as IconMessage } from './IconMessage';
 export { default as IconBofang1 } from './IconBofang1';
 export { default as IconBofang2 } from './IconBofang2';
+export { default as IconBofang3 } from './IconBofang3';
+export { default as IconBofangsanjiaoxing } from './IconBofangsanjiaoxing';
+export { default as IconFanhui } from './IconFanhui';
+export { default as IconFanhui1 } from './IconFanhui1';
+export { default as IconFavoritesFill } from './IconFavoritesFill';
 export { default as IconFaxian } from './IconFaxian';
+export { default as IconFullscreen } from './IconFullscreen';
+export { default as IconHomeSelect } from './IconHomeSelect';
+export { default as IconHuanyipi } from './IconHuanyipi';
+export { default as IconLijitingke } from './IconLijitingke';
+export { default as IconMessage } from './IconMessage';
+export { default as IconPause } from './IconPause';
+export { default as IconPlayArrow } from './IconPlayArrow';
+export { default as IconQunfengcainixihuanxian } from './IconQunfengcainixihuanxian';
+export { default as IconShangyishou } from './IconShangyishou';
+export { default as IconShengyin } from './IconShengyin';
+export { default as IconShengyin1 } from './IconShengyin1';
 export { default as IconShijian } from './IconShijian';
-export { default as IconShouye } from './IconShouye';
 export { default as IconShoucang } from './IconShoucang';
+export { default as IconShouye } from './IconShouye';
+export { default as IconShouye1 } from './IconShouye1';
+export { default as IconTimeIcon } from './IconTimeIcon';
+export { default as IconTubiao } from './IconTubiao';
+export { default as IconUser } from './IconUser';
+export { default as IconV } from './IconV';
+export { default as IconVolumeOff } from './IconVolumeOff';
+export { default as IconVolumeUp } from './IconVolumeUp';
+export { default as IconWeibiaoti35 } from './IconWeibiaoti35';
+export { default as IconWeibiaoti519 } from './IconWeibiaoti519';
+export { default as IconXiayishou } from './IconXiayishou';
+export { default as IconYemianCopyCopy } from './IconYemianCopyCopy';
 
 export type IconNames = 'icon-home-select' | 'icon-yemian-copy-copy' | 'icon-shouye1' | 'icon-volume-up' | 'icon-favorites-fill' | 'icon-volume-off' | 'icon-pause' | 'icon-play-arrow' | 'icon-fullscreen' | 'icon-lijitingke' | 'icon-bofang3' | 'icon-weibiaoti519' | 'icon-shangyishou' | 'icon-xiayishou' | 'icon-weibiaoti35' | 'icon-fanhui' | 'icon-fanhui1' | 'icon-huanyipi' | 'icon-qunfengcainixihuanxian' | 'icon-tubiao-' | 'icon-shengyin' | 'icon-shengyin1' | 'icon-V' | 'icon-add-select' | 'icon-user' | 'icon-bofang' | 'icon-bofangsanjiaoxing' | 'icon-time_icon' | 'icon-message' | 'icon-bofang1' | 'icon-bofang2' | 'icon-faxian' | 'icon-shijian' | 'icon-shouye' | 'icon-shoucang';
 
@@ -83,7 +83,7 @@ interface Props extends GProps, ViewProps {
   color?: string | string[];
 }
 
-let IconFont: FunctionComponent<Props> = ({ name, ...rest }) => {
+let Icon: FunctionComponent<Props> = ({ name, ...rest }) => {
   switch (name) {
     case 'icon-home-select':
       return <IconHomeSelect key="1" {...rest} />;
@@ -157,9 +157,8 @@ let IconFont: FunctionComponent<Props> = ({ name, ...rest }) => {
       return <IconShoucang key="35" {...rest} />;
   }
 
-  return null;
 };
 
-IconFont = React.memo ? React.memo(IconFont) : IconFont;
+Icon = React.memo ? React.memo(Icon) : Icon;
 
-export default IconFont;
+export default Icon;
