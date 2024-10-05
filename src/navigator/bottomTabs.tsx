@@ -9,12 +9,12 @@ import { useEffect } from 'react';
 import Icon from '~/assets/iconfont';
 import Account from '~/pages/account';
 import Found from '~/pages/found';
-import Home from '~/pages/home';
 import Listen from '~/pages/listen';
 import { RootStackParamList } from '.';
+import HomeTabs from './homeTabs';
 
 export type BottomTabParamList = {
-  Home: undefined;
+  HomeTabs: undefined;
   Listen: undefined;
   Found: undefined;
   Account: undefined;
@@ -29,9 +29,9 @@ const getHeaderTitle = (route: Route) => {
   const routeName =
     route?.state?.routes[route?.state?.index].name ||
     route?.params?.screen ||
-    'Home';
+    'HomeTabs';
   switch (routeName) {
-    case 'Home':
+    case 'HomeTabs':
       return '首页';
     case 'Listen':
       return '我听';
@@ -58,10 +58,11 @@ const BottomTabs = () => {
       screenOptions={{
         tabBarActiveTintColor: '#f86442',
         headerShown: false,
-      }}>
+      }}
+    >
       <Tab.Screen
-        name='Home'
-        component={Home}
+        name='HomeTabs'
+        component={HomeTabs}
         options={{
           tabBarLabel: '首页',
           tabBarIcon: ({ color, size }) => (

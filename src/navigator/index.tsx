@@ -42,7 +42,8 @@ const Navigator = () => {
               },
             }),
           },
-        }}>
+        }}
+      >
         <Stack.Screen
           name='BottomTabs'
           component={BottomTabs}
