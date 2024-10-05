@@ -1,5 +1,5 @@
 import axiosIns from '~/config/http';
-import { CarouselItem, GuessItem } from '~/types/home';
+import { CarouselItem, ChannelObject, GuessItem } from '~/types/home';
 import { IRes } from '~/types/http';
 
 export function getCarousel(): Promise<IRes<CarouselItem[]>> {
@@ -7,4 +7,7 @@ export function getCarousel(): Promise<IRes<CarouselItem[]>> {
 }
 export function getGuess(): Promise<IRes<GuessItem[]>> {
   return axiosIns.get(`/guess`);
+}
+export function getChannel(): Promise<IRes<ChannelObject>> {
+  return axiosIns.get(`/channel`);
 }

@@ -1,4 +1,3 @@
-import { useMount } from 'ahooks';
 import { FlatList, Image, Text, View } from 'react-native';
 import Icon from '~/assets/iconfont';
 import Touchable from '~/components/touchable';
@@ -12,7 +11,6 @@ const Guess = () => {
   const handleRefresh = () => {
     dispatch(fetchGuess());
   };
-  useMount(handleRefresh);
   const renderItem = ({ item }: { item: GuessItem }) => {
     return (
       <Touchable

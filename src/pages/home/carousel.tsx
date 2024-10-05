@@ -1,4 +1,3 @@
-import { useMount } from 'ahooks';
 import { useRef } from 'react';
 import { Image, View } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
@@ -6,8 +5,7 @@ import SnapCarousel, {
   ICarouselInstance,
   Pagination,
 } from 'react-native-reanimated-carousel';
-import { useAppDispatch, useAppSelector } from '~/hooks/state';
-import { fetchCarousel } from '~/models/home';
+import { useAppSelector } from '~/hooks/state';
 import { CarouselItem } from '~/types/home';
 import { hp, viewportWidth, wp } from '~/utils';
 
@@ -16,8 +14,6 @@ const imageWidth = wp(90);
 const imageHeight = hp(26);
 
 const Carousel = () => {
-  const dispatch = useAppDispatch();
-
   const ref = useRef<ICarouselInstance>(null);
   const progress = useSharedValue<number>(0);
   const { carousels } = useAppSelector((s) => s.home);
@@ -28,9 +24,7 @@ const Carousel = () => {
       animated: true,
     });
   };
-  useMount(() => {
-    dispatch(fetchCarousel());
-  });
+
   const renderItem = ({ item }: { item: CarouselItem }) => {
     return (
       <View className='items-center'>

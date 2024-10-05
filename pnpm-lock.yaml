@@ -115,7 +115,7 @@ importers:
         specifier: ^3.3.3
         version: 3.3.3
       prettier-plugin-tailwindcss:
-        specifier: ^0.5.11
+        specifier: ^0.5.14
         version: 0.5.14(prettier@3.3.3)
       react-native-iconfont-cli:
         specifier: ^2.2.4
