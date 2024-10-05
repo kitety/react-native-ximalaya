@@ -7,7 +7,11 @@ export default function IndexApp() {
   return (
     <Provider store={store}>
       <Navigator />
-      <StatusBar style='auto' />
+      <StatusBar
+        backgroundColor='transparent'
+        translucent={true}
+        style='dark'
+      />
     </Provider>
   );
 }

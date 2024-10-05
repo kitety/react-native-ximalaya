@@ -21,9 +21,15 @@ const HomeTabs = () => {
         tabBarActiveTintColor: '#f86442',
         tabBarInactiveTintColor: '#333',
         lazy: true,
-      }}
-    >
-      <Tab.Screen name='推荐' component={Home} />
+        tabBarBounces: true,
+      }}>
+      <Tab.Screen
+        name='home'
+        component={Home}
+        options={{
+          tabBarLabel: '推荐',
+        }}
+      />
     </Tab.Navigator>
   );
 };

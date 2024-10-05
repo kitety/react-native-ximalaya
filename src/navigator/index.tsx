@@ -5,7 +5,7 @@ import {
   HeaderStyleInterpolators,
   StackNavigationProp,
 } from '@react-navigation/stack';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StatusBar, StyleSheet } from 'react-native';
 import Detail from '~/pages/detail';
 import BottomTabs, { BottomTabParamList } from './bottomTabs';
 
@@ -23,6 +23,7 @@ export type RootStackNavigation = StackNavigationProp<RootStackParamList>;
 const Stack = createStackNavigator<RootStackParamList>();
 
 const Navigator = () => {
+  console.log('StatusBar.currentHeight', StatusBar.currentHeight);
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -33,6 +34,8 @@ const Navigator = () => {
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           gestureEnabled: true,
           gestureDirection: 'horizontal',
+          headerStatusBarHeight:
+            Platform.OS === 'android' ? StatusBar.currentHeight : undefined,
           headerStyle: {
             // backgroundColor: '#f86442',
             ...Platform.select({
@@ -42,8 +45,7 @@ const Navigator = () => {
               },
             }),
           },
-        }}
-      >
+        }}>
         <Stack.Screen
           name='BottomTabs'
           component={BottomTabs}
