@@ -1,10 +1,10 @@
-import { ScreenContent } from 'components/ScreenContent';
 import { StatusBar } from 'expo-status-bar';
+import Navigator from './navigator';
 
 export default function IndexApp() {
   return (
     <>
-      <ScreenContent title='Home' path='App.tsx' />
+      <Navigator />
       <StatusBar style='auto' />
     </>
   );
