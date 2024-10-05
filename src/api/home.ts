@@ -8,6 +8,6 @@ export function getCarousel(): Promise<IRes<CarouselItem[]>> {
 export function getGuess(): Promise<IRes<GuessItem[]>> {
   return axiosIns.get(`/guess`);
 }
-export function getChannel(): Promise<IRes<ChannelObject>> {
-  return axiosIns.get(`/channel`);
+export function getChannel(page: number = 1): Promise<IRes<ChannelObject>> {
+  return axiosIns.get(`/channel?page=${page}`);
 }

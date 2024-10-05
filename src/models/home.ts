@@ -36,10 +36,13 @@ export const fetchGuess = createAsyncThunk('home/guess', async () => {
   const data = await getGuess();
   return data;
 });
-export const fetchChannel = createAsyncThunk('home/channel', async () => {
-  const data = await getChannel();
-  return data;
-});
+export const fetchChannel = createAsyncThunk(
+  'home/channel',
+  async (page: number = 1) => {
+    const data = await getChannel(page);
+    return data;
+  },
+);
 
 export const counterSlice = createSlice({
   name: 'home',
@@ -55,7 +58,14 @@ export const counterSlice = createSlice({
     });
 
     builder.addCase(fetchChannel.fulfilled, (state, action) => {
-      state.channels = action.payload.data;
+      const results = [
+        ...state.channels.results,
+        ...action.payload.data.results,
+      ];
+      state.channels = {
+        ...action.payload.data,
+        results,
+      };
     });
   },
 });
