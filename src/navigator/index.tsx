@@ -7,11 +7,15 @@ import {
 } from '@react-navigation/stack';
 import { Platform, StyleSheet } from 'react-native';
 import Detail from '~/pages/detail';
-import Home from '~/pages/home';
+import BottomTabs, { BottomTabParamList } from './bottomTabs';
 
 export type RootStackParamList = {
-  Home: undefined;
-  Detail: undefined;
+  BottomTabs: {
+    screen: keyof BottomTabParamList;
+  };
+  Detail: {
+    id: number;
+  };
 };
 
 export type RootStackNavigation = StackNavigationProp<RootStackParamList>;
@@ -40,8 +44,8 @@ const Navigator = () => {
           },
         }}>
         <Stack.Screen
-          name='Home'
-          component={Home}
+          name='BottomTabs'
+          component={BottomTabs}
           options={{
             title: '首页',
           }}

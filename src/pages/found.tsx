@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Button, Text, View } from 'react-native';
 import { RootStackNavigation } from '~/navigator';
 
-const Home = () => {
+const Found = () => {
   const navigation = useNavigation<RootStackNavigation>();
   return (
     <View>
@@ -19,4 +19,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Found;
