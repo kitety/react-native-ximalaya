@@ -23,7 +23,6 @@ export type RootStackNavigation = StackNavigationProp<RootStackParamList>;
 const Stack = createStackNavigator<RootStackParamList>();
 
 const Navigator = () => {
-  console.log('StatusBar.currentHeight', StatusBar.currentHeight);
   return (
     <NavigationContainer>
       <Stack.Navigator

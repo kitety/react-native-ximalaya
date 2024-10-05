@@ -1,11 +1,13 @@
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import Carousel from './carousel';
+import Guess from './guess';
 
 const Home = () => {
   return (
-    <View>
+    <ScrollView>
       <Carousel />
-    </View>
+      <Guess />
+    </ScrollView>
   );
 };
 
