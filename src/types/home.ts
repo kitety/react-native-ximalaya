@@ -1,33 +1,33 @@
-export interface CarouselItem {
+export interface ICarouselItem {
   id: string;
   image: string;
   colors: [string, string];
 }
-export interface GuessItem {
+export interface IGuessItem {
   id: string;
   image: string;
   title: string;
 }
 
-export interface ChannelObject {
-  results: ChannelItem[];
-  info: ChannelInfo;
-  pagination: ChannelPagination;
+export interface IChannelObject {
+  results: IChannelItem[];
+  info: IChannelInfo;
+  pagination: IChannelPagination;
 }
 
-export interface ChannelInfo {
+export interface IChannelInfo {
   page: number;
   results: number;
   total: number;
 }
 
-export interface ChannelPagination {
+export interface IChannelPagination {
   current: number;
   total: number;
   pageSize: number;
 }
 
-export interface ChannelItem {
+export interface IChannelItem {
   id: string;
   image: string;
   title: string;

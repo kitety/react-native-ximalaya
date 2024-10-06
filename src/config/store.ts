@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import devToolsEnhancer from 'redux-devtools-expo-dev-plugin';
+import categoryReducer from '~/models/category';
 import homeReducer from '~/models/home';
 
 export const store = configureStore({
   reducer: {
     home: homeReducer,
+    category: categoryReducer,
   },
   devTools: false,
   enhancers: (getDefaultEnhancers) =>

@@ -3,7 +3,7 @@ import Icon from '~/assets/iconfont';
 import Touchable from '~/components/touchable';
 import { useAppDispatch, useAppSelector } from '~/hooks/state';
 import { fetchGuess } from '~/models/home';
-import { GuessItem } from '~/types/home';
+import { IGuessItem } from '~/types/home';
 
 const Guess = () => {
   const dispatch = useAppDispatch();
@@ -11,7 +11,7 @@ const Guess = () => {
   const handleRefresh = () => {
     dispatch(fetchGuess());
   };
-  const renderItem = ({ item }: { item: GuessItem }) => {
+  const renderItem = ({ item }: { item: IGuessItem }) => {
     return (
       <Touchable className='mx-2.5 my-1.5 flex-1' onPress={() => {}}>
         <Image source={{ uri: item.image }} className='h-24 w-full rounded' />

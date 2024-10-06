@@ -2,13 +2,13 @@ import { FC } from 'react';
 import { Image, Text, View } from 'react-native';
 import Icon from '~/assets/iconfont';
 import Touchable from '~/components/touchable';
-import { ChannelItem } from '~/types/home';
+import { IChannelItem } from '~/types/home';
 
-interface ChannelItemProps {
-  item: ChannelItem;
-  onPress: (item: ChannelItem) => void;
+interface IChannelItemProps {
+  item: IChannelItem;
+  onPress: (item: IChannelItem) => void;
 }
-const ChannelView: FC<ChannelItemProps> = ({ item, onPress }) => {
+const ChannelView: FC<IChannelItemProps> = ({ item, onPress }) => {
   const handlePress = () => {
     onPress?.(item);
   };

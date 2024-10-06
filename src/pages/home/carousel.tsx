@@ -6,7 +6,7 @@ import SnapCarousel, {
   Pagination,
 } from 'react-native-reanimated-carousel';
 import { useAppDispatch, useAppSelector } from '~/hooks/state';
-import { CarouselItem } from '~/types/home';
+import { ICarouselItem } from '~/types/home';
 import { hp, viewportWidth, wp } from '~/utils';
 
 const slideWidth = viewportWidth;
@@ -26,7 +26,7 @@ const Carousel = () => {
     });
   };
 
-  const renderItem = ({ item }: { item: CarouselItem }) => {
+  const renderItem = ({ item }: { item: ICarouselItem }) => {
     return (
       <View className='items-center'>
         <Image
@@ -50,7 +50,7 @@ const Carousel = () => {
 
   return (
     <View>
-      <SnapCarousel<CarouselItem>
+      <SnapCarousel<ICarouselItem>
         autoPlay
         ref={ref}
         pagingEnabled

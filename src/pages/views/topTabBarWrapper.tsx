@@ -2,6 +2,7 @@ import {
   MaterialTopTabBar,
   MaterialTopTabBarProps,
 } from '@react-navigation/material-top-tabs';
+import { useNavigation } from '@react-navigation/native';
 import { useUpdate } from 'ahooks';
 import { LinearGradient } from 'expo-linear-gradient';
 import gsap from 'gsap';
@@ -10,8 +11,9 @@ import { Text, View } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-screen-helper';
 import Touchable from '~/components/touchable';
 import { useAppSelector } from '~/hooks/state';
+import { RootStackNavigation } from '~/navigator';
 
-interface TopTabBarWrapperProps extends MaterialTopTabBarProps {}
+interface ITopTabBarWrapperProps extends MaterialTopTabBarProps {}
 
 const GradientComponent = () => {
   const update = useUpdate();
@@ -54,7 +56,8 @@ const GradientComponent = () => {
     />
   ) : null;
 };
-const TopTabBarWrapper: FC<TopTabBarWrapperProps> = (props) => {
+const TopTabBarWrapper: FC<ITopTabBarWrapperProps> = (props) => {
+  const navigation = useNavigation<RootStackNavigation>();
   const height = getStatusBarHeight(true);
   const { gradientVisible } = useAppSelector((state) => state.home);
   const textColor = gradientVisible ? 'text-white' : '';
@@ -63,7 +66,11 @@ const TopTabBarWrapper: FC<TopTabBarWrapperProps> = (props) => {
       <GradientComponent />
       <View className='flex-row items-center justify-between'>
         <MaterialTopTabBar {...props} />
-        <Touchable className='border-l border-[#ccc] px-2.5'>
+        <Touchable
+          className='border-l border-[#ccc] px-2.5'
+          onPress={() => {
+            navigation.navigate('Category');
+          }}>
           <Text className={textColor}>分类</Text>
         </Touchable>
       </View>

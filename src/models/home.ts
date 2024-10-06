@@ -1,19 +1,19 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getCarousel, getChannel, getGuess } from '~/api/home';
-import { CarouselItem, ChannelObject, GuessItem } from '~/types/home';
+import { ICarouselItem, IChannelObject, IGuessItem } from '~/types/home';
 
-export interface HomeState {
-  carousels: CarouselItem[];
-  guesses: GuessItem[];
+export interface IHomeState {
+  carousels: ICarouselItem[];
+  guesses: IGuessItem[];
   loading: boolean;
-  channels: ChannelObject;
+  channels: IChannelObject;
   // 当前carousel的index
   carouselIndex: number;
   // 是否显示gradient
   gradientVisible: boolean;
 }
 
-const initialState: HomeState = {
+const initialState: IHomeState = {
   carousels: [],
   guesses: [],
   loading: false,
@@ -50,14 +50,14 @@ export const fetchChannel = createAsyncThunk(
   },
 );
 
-export const counterSlice = createSlice({
+export const homeSlice = createSlice({
   name: 'home',
   initialState,
   reducers: {
-    setCarouselIndex: (state, action: { payload: number }) => {
+    setCarouselIndex: (state, action: PayloadAction<number>) => {
       state.carouselIndex = action.payload;
     },
-    setGradientVisible: (state, action: { payload: boolean }) => {
+    setGradientVisible: (state, action: PayloadAction<boolean>) => {
       state.gradientVisible = action.payload;
     },
   },
@@ -83,5 +83,5 @@ export const counterSlice = createSlice({
   },
 });
 
-const homeReducer = counterSlice.reducer;
+const homeReducer = homeSlice.reducer;
 export default homeReducer;

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { useAppDispatch, useAppSelector } from '~/hooks/state';
 import { fetchCarousel, fetchChannel, fetchGuess } from '~/models/home';
-import { ChannelItem } from '~/types/home';
+import { IChannelItem } from '~/types/home';
 import Carousel, { carouselImageHeight } from './carousel';
 import ChannelView from './channelItem';
 import Guess from './guess';
@@ -25,7 +25,7 @@ const Home = () => {
     dispatch(fetchChannel(state.page));
   });
 
-  const onChannelPress = (item: ChannelItem) => {};
+  const onChannelPress = (item: IChannelItem) => {};
 
   const onEndReached = () => {
     const isShowMore = channels.results.length < channels.pagination.total;
@@ -35,7 +35,7 @@ const Home = () => {
     }
   };
 
-  const renderChannelItem = ({ item }: ListRenderItemInfo<ChannelItem>) => {
+  const renderChannelItem = ({ item }: ListRenderItemInfo<IChannelItem>) => {
     return <ChannelView item={item} onPress={onChannelPress} />;
   };
   const onRefresh = () => {
@@ -74,7 +74,7 @@ const Home = () => {
   const listEmptyComponent = () => {
     return (
       <View className='items-center'>
-        <Text className='items-center'>暂时没有数据</Text>
+        <Text className='mt-2 items-center'>暂时没有数据</Text>
       </View>
     );
   };
@@ -91,7 +91,7 @@ const Home = () => {
   };
 
   return (
-    <FlatList<ChannelItem>
+    <FlatList<IChannelItem>
       ListHeaderComponent={headerComponent}
       data={channels.results}
       renderItem={renderChannelItem}
