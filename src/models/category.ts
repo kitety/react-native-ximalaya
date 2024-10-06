@@ -53,6 +53,9 @@ export const categorySlice = createSlice({
     toggleEditing: (state) => {
       state.isEditing = !state.isEditing;
     },
+    setState: (state, action: PayloadAction<{ isEditing: boolean }>) => {
+      return { ...state, ...action.payload };
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(

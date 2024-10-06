@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import { useMount } from 'ahooks';
 import { groupBy } from 'lodash-es';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { ScrollView, Text, View } from 'react-native';
+import Touchable from '~/components/touchable';
 import { useAppDispatch, useAppSelector } from '~/hooks/state';
 import { loadCategory } from '~/models/category';
 import { ICategory } from '~/types/category';
@@ -12,15 +13,20 @@ import CategoryItem from './item';
 const Category = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const { allCategories, myCategories } = useAppSelector((s) => s.category);
-  useMount(() => {
-    dispatch(loadCategory());
-  });
+  const { allCategories, myCategories, isEditing } = useAppSelector(
+    (s) => s.category,
+  );
   useMount(() => {
     navigation.setOptions({
       headerRight: () => <HeaderRightBtn onToggleEditing={onToggleEditing} />,
     });
   });
+  useEffect(() => {
+    dispatch(loadCategory());
+    return () => {
+      dispatch({ type: 'category/setState', payload: { isEditing: false } });
+    };
+  }, [dispatch]);
 
   const formattedCategories = useMemo(
     () => groupBy(allCategories, 'classify'),
@@ -29,8 +35,22 @@ const Category = () => {
   const onToggleEditing = () => {
     dispatch({ type: 'category/toggleEditing' });
   };
-  const renderItem = (item: ICategory) => {
-    return <CategoryItem item={item} key={item.id} />;
+  const onItemLongPress = () => {
+    dispatch({ type: 'category/setState', payload: { isEditing: true } });
+  };
+  const renderSelectedItem = (item: ICategory) => {
+    return (
+      <Touchable onLongPress={onItemLongPress} key={item.id}>
+        <CategoryItem item={item} isEditing={isEditing} selected />
+      </Touchable>
+    );
+  };
+  const renderUnselectedItem = (item: ICategory) => {
+    return (
+      <Touchable onLongPress={onItemLongPress} key={item.id}>
+        <CategoryItem item={item} isEditing={isEditing} selected={false} />
+      </Touchable>
+    );
   };
 
   return (
@@ -38,7 +58,7 @@ const Category = () => {
       <View>
         <Text className='mb-2 ml-2 mt-[14px] text-base'>我的分类</Text>
         <View className='flex-row flex-wrap p-1'>
-          {myCategories.map(renderItem)}
+          {myCategories.map(renderSelectedItem)}
         </View>
       </View>
       <View>
@@ -46,7 +66,7 @@ const Category = () => {
           <View key={key}>
             <Text className='mb-2 ml-2 mt-[14px] text-base'>{key}</Text>
             <View className='flex-row flex-wrap p-1'>
-              {cates.map(renderItem)}
+              {cates.map(renderUnselectedItem)}
             </View>
           </View>
         ))}
