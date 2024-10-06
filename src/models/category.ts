@@ -1,10 +1,12 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { load } from '~/config/storage';
+import { RootState } from '~/config/store';
 import { ICategory } from '~/types/category';
 
 export interface ICategoryState {
   myCategories: ICategory[];
   allCategories: ICategory[];
+  isEditing: boolean;
 }
 
 const myBaseCategories = [
@@ -20,20 +22,38 @@ const myBaseCategories = [
 const initialState: ICategoryState = {
   myCategories: [...myBaseCategories],
   allCategories: [],
+  isEditing: false,
 };
 
-export const loadCategory = createAsyncThunk('category/load', async () => {
-  const [myCategories, allCategories] = await Promise.all([
-    load({ key: 'myCategories' }),
-    load({ key: 'allCategories' }),
-  ]);
-  return { myCategories, allCategories };
+export const loadCategory = createAsyncThunk(
+  'category/loadCategory',
+  async () => {
+    const [myCategories, allCategories] = await Promise.all([
+      load({ key: 'myCategories' }),
+      load({ key: 'allCategories' }),
+    ]);
+    return { myCategories, allCategories };
+  },
+);
+export const toggleEditing = createAsyncThunk<
+  boolean,
+  void,
+  { state: RootState }
+>('category/toggleEditing', async (_, thunkAPI) => {
+  const state = thunkAPI.getState();
+  const currentEditingState = state.category.isEditing;
+  console.log('currentEditingState', currentEditingState);
+  return !currentEditingState;
 });
 
 export const categorySlice = createSlice({
   name: 'category',
   initialState,
-  reducers: {},
+  reducers: {
+    toggleEditing: (state) => {
+      state.isEditing = !state.isEditing;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(
       loadCategory.fulfilled,
@@ -51,6 +71,9 @@ export const categorySlice = createSlice({
         state.allCategories = allCategories || [];
       },
     );
+    builder.addCase(toggleEditing.fulfilled, (state, action) => {
+      state.isEditing = action.payload;
+    });
   },
 });
 

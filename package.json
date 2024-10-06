@@ -40,6 +40,7 @@
     "react-native-storage": "^1.0.1",
     "react-native-svg": "^15.7.1",
     "react-native-tab-view": "^3.5.2",
+    "react-navigation-header-buttons": "^6.3.1",
     "react-redux": "^9.1.2",
     "redux-devtools-expo-dev-plugin": "^0.2.1"
   },

@@ -31,12 +31,13 @@ const Navigator = () => {
         screenOptions={{
           headerTitleAlign: 'center',
           headerMode: 'float',
+          headerBackTitleVisible: false,
+          headerTintColor: '#333',
           headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           gestureEnabled: true,
           gestureDirection: 'horizontal',
-          headerStatusBarHeight:
-            Platform.OS === 'android' ? StatusBar.currentHeight : undefined,
+          headerStatusBarHeight: StatusBar.currentHeight ?? undefined,
           headerStyle: {
             // backgroundColor: '#f86442',
             ...Platform.select({

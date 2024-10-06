@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { useMount } from 'ahooks';
 import { groupBy } from 'lodash-es';
 import { useMemo } from 'react';
@@ -5,21 +6,31 @@ import { ScrollView, Text, View } from 'react-native';
 import { useAppDispatch, useAppSelector } from '~/hooks/state';
 import { loadCategory } from '~/models/category';
 import { ICategory } from '~/types/category';
+import HeaderRightBtn from './headerRightBtn';
 import CategoryItem from './item';
 
 const Category = () => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigation();
   const { allCategories, myCategories } = useAppSelector((s) => s.category);
   useMount(() => {
     dispatch(loadCategory());
   });
+  useMount(() => {
+    navigation.setOptions({
+      headerRight: () => <HeaderRightBtn onToggleEditing={onToggleEditing} />,
+    });
+  });
+
   const formattedCategories = useMemo(
     () => groupBy(allCategories, 'classify'),
     [allCategories],
   );
-  console.log('data', formattedCategories);
+  const onToggleEditing = () => {
+    dispatch({ type: 'category/toggleEditing' });
+  };
   const renderItem = (item: ICategory) => {
-    return <CategoryItem item={item} />;
+    return <CategoryItem item={item} key={item.id} />;
   };
 
   return (
