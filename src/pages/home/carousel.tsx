@@ -5,7 +5,7 @@ import SnapCarousel, {
   ICarouselInstance,
   Pagination,
 } from 'react-native-reanimated-carousel';
-import { useAppSelector } from '~/hooks/state';
+import { useAppDispatch, useAppSelector } from '~/hooks/state';
 import { CarouselItem } from '~/types/home';
 import { hp, viewportWidth, wp } from '~/utils';
 
@@ -14,6 +14,7 @@ const imageWidth = wp(90);
 const imageHeight = hp(26);
 
 const Carousel = () => {
+  const dispatch = useAppDispatch();
   const ref = useRef<ICarouselInstance>(null);
   const progress = useSharedValue<number>(0);
   const { carousels } = useAppSelector((s) => s.home);
@@ -36,6 +37,13 @@ const Carousel = () => {
     );
   };
 
+  const handleSnapToItem = (index: number) => {
+    dispatch({
+      type: 'home/setCarouselIndex',
+      payload: index,
+    });
+  };
+
   return (
     <View>
       <SnapCarousel<CarouselItem>
@@ -52,7 +60,8 @@ const Carousel = () => {
           parallaxScrollingScale: 1,
           parallaxScrollingOffset: 20,
         }}
-        autoPlayInterval={1000}
+        autoPlayInterval={3000}
+        onSnapToItem={handleSnapToItem}
       />
       <Pagination.Basic
         progress={progress}

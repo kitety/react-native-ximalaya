@@ -24,12 +24,7 @@ type Route = RouteProp<RootStackParamList, 'BottomTabs'> & {
   state?: TabNavigationState<{}>;
 };
 
-const getHeaderTitle = (route: Route) => {
-  console.log('route', route);
-  const routeName =
-    route?.state?.routes[route?.state?.index].name ||
-    route?.params?.screen ||
-    'HomeTabs';
+const getHeaderTitle = (routeName: string) => {
   switch (routeName) {
     case 'HomeTabs':
       return '首页';
@@ -47,9 +42,16 @@ const BottomTabs = () => {
   const navigation = useNavigation();
   const routes = useNavigationState((state) => state.routes);
   useEffect(() => {
-    const tmpData = routes?.[0] as unknown as Route;
+    const route = routes?.[0] as unknown as Route;
+    const routeName =
+      route?.state?.routes[route?.state?.index].name ||
+      route?.params?.screen ||
+      'HomeTabs';
+    const isShowHeader = routeName !== 'HomeTabs';
+    const headerTitle = isShowHeader ? getHeaderTitle(routeName) : '';
     navigation.setOptions({
-      headerTitle: getHeaderTitle(tmpData),
+      headerShown: isShowHeader,
+      headerTitle,
     });
   }, [navigation, routes]);
 
@@ -58,8 +60,7 @@ const BottomTabs = () => {
       screenOptions={{
         tabBarActiveTintColor: '#f86442',
         headerShown: false,
-      }}
-    >
+      }}>
       <Tab.Screen
         name='HomeTabs'
         component={HomeTabs}

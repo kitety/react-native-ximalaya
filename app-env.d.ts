@@ -1,2 +1,2 @@
-// @ts-ignore
+// @ts-nocheck
 /// <reference types="nativewind/types" />

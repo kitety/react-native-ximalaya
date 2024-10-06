@@ -1,12 +1,29 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import {
+  MaterialTopTabBarProps,
+  createMaterialTopTabNavigator,
+} from '@react-navigation/material-top-tabs';
 import Home from '~/pages/home';
+import TopTabBarWrapper from '~/pages/views/topTabBarWrapper';
 
 const Tab = createMaterialTopTabNavigator();
 
 const HomeTabs = () => {
+  const renderTabBar = (props: MaterialTopTabBarProps) => {
+    return <TopTabBarWrapper {...props} />;
+  };
   return (
     <Tab.Navigator
+      tabBar={renderTabBar}
+      sceneContainerStyle={{
+        backgroundColor: 'transparent',
+      }}
       screenOptions={{
+        tabBarStyle: {
+          elevation: 0,
+          flex: 1,
+          overflow: 'hidden',
+          backgroundColor: 'transparent',
+        },
         tabBarScrollEnabled: true,
         tabBarItemStyle: {
           width: 80,

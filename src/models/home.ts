@@ -7,6 +7,8 @@ export interface HomeState {
   guesses: GuessItem[];
   loading: boolean;
   channels: ChannelObject;
+  // 当前carousel的index
+  carouselIndex: number;
 }
 
 const initialState: HomeState = {
@@ -26,6 +28,7 @@ const initialState: HomeState = {
       pageSize: 0,
     },
   },
+  carouselIndex: 0,
 };
 
 export const fetchCarousel = createAsyncThunk('home/carousel', async () => {
@@ -47,7 +50,11 @@ export const fetchChannel = createAsyncThunk(
 export const counterSlice = createSlice({
   name: 'home',
   initialState,
-  reducers: {},
+  reducers: {
+    setCarouselIndex: (state, action: { payload: number }) => {
+      state.carouselIndex = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchCarousel.fulfilled, (state, action) => {
       state.carousels = action.payload.data;
