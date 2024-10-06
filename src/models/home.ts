@@ -58,10 +58,10 @@ export const counterSlice = createSlice({
     });
 
     builder.addCase(fetchChannel.fulfilled, (state, action) => {
-      const results = [
-        ...state.channels.results,
-        ...action.payload.data.results,
-      ];
+      // 第一页的话需要清空原来的数据
+      const isFirstPage = action.meta?.arg === 1;
+      const initialResults = isFirstPage ? [] : state.channels.results;
+      const results = [...initialResults, ...action.payload.data.results];
       state.channels = {
         ...action.payload.data,
         results,

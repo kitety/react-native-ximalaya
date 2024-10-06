@@ -14,7 +14,7 @@ import ChannelView from './channelItem';
 import Guess from './guess';
 
 const Home = () => {
-  const state = useReactive({ page: 1 });
+  const state = useReactive({ page: 1, refreshing: false });
   const { channels } = useAppSelector((s) => s.home);
   const dispatch = useAppDispatch();
   useMount(() => {
@@ -39,6 +39,14 @@ const Home = () => {
   const renderChannelItem = ({ item }: ListRenderItemInfo<ChannelItem>) => {
     return <ChannelView item={item} onPress={onChannelPress} />;
   };
+  const onRefresh = () => {
+    state.refreshing = true;
+    state.page = 1;
+    dispatch(fetchChannel(state.page)).finally(() => {
+      state.refreshing = false;
+    });
+  };
+
   const headerComponent = (
     <View className='mt-2.5'>
       <Carousel />
@@ -69,6 +77,7 @@ const Home = () => {
       </View>
     );
   };
+
   return (
     <FlatList<ChannelItem>
       ListHeaderComponent={headerComponent}
@@ -79,6 +88,8 @@ const Home = () => {
       onEndReachedThreshold={0.2}
       ListFooterComponent={footerComponent}
       ListEmptyComponent={listEmptyComponent}
+      onRefresh={onRefresh}
+      refreshing={state.refreshing}
     />
   );
 };
