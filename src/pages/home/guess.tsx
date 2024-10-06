@@ -13,11 +13,7 @@ const Guess = () => {
   };
   const renderItem = ({ item }: { item: GuessItem }) => {
     return (
-      <Touchable
-        className='mx-2.5 my-1.5 flex-1'
-        onPress={() => {
-          console.log('item', item);
-        }}>
+      <Touchable className='mx-2.5 my-1.5 flex-1' onPress={() => {}}>
         <Image source={{ uri: item.image }} className='h-24 w-full rounded' />
         <Text className='mt-2.5' numberOfLines={2}>
           {item.title}

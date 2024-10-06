@@ -9,6 +9,8 @@ export interface HomeState {
   channels: ChannelObject;
   // 当前carousel的index
   carouselIndex: number;
+  // 是否显示gradient
+  gradientVisible: boolean;
 }
 
 const initialState: HomeState = {
@@ -29,6 +31,7 @@ const initialState: HomeState = {
     },
   },
   carouselIndex: 0,
+  gradientVisible: true,
 };
 
 export const fetchCarousel = createAsyncThunk('home/carousel', async () => {
@@ -53,6 +56,9 @@ export const counterSlice = createSlice({
   reducers: {
     setCarouselIndex: (state, action: { payload: number }) => {
       state.carouselIndex = action.payload;
+    },
+    setGradientVisible: (state, action: { payload: boolean }) => {
+      state.gradientVisible = action.payload;
     },
   },
   extraReducers: (builder) => {

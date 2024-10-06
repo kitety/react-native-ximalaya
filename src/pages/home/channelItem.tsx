@@ -10,7 +10,6 @@ interface ChannelItemProps {
 }
 const ChannelView: FC<ChannelItemProps> = ({ item, onPress }) => {
   const handlePress = () => {
-    console.log('onPress');
     onPress?.(item);
   };
   return (

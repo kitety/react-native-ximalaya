@@ -2,6 +2,7 @@ import {
   MaterialTopTabBarProps,
   createMaterialTopTabNavigator,
 } from '@react-navigation/material-top-tabs';
+import { useAppSelector } from '~/hooks/state';
 import Home from '~/pages/home';
 import TopTabBarWrapper from '~/pages/views/topTabBarWrapper';
 
@@ -11,6 +12,7 @@ const HomeTabs = () => {
   const renderTabBar = (props: MaterialTopTabBarProps) => {
     return <TopTabBarWrapper {...props} />;
   };
+  const { gradientVisible } = useAppSelector((s) => s.home);
   return (
     <Tab.Navigator
       tabBar={renderTabBar}
@@ -33,9 +35,9 @@ const HomeTabs = () => {
           width: 20,
           marginLeft: 30,
           borderRadius: 2,
-          backgroundColor: '#f86442',
+          backgroundColor: gradientVisible ? '#fff' : '#f86442',
         },
-        tabBarActiveTintColor: '#f86442',
+        tabBarActiveTintColor: gradientVisible ? '#fff' : '#f86442',
         tabBarInactiveTintColor: '#333',
         lazy: true,
         tabBarBounces: true,

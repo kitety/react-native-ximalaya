@@ -11,7 +11,7 @@ import { hp, viewportWidth, wp } from '~/utils';
 
 const slideWidth = viewportWidth;
 const imageWidth = wp(90);
-const imageHeight = hp(26);
+export const carouselImageHeight = hp(26);
 
 const Carousel = () => {
   const dispatch = useAppDispatch();
@@ -31,7 +31,11 @@ const Carousel = () => {
       <View className='items-center'>
         <Image
           source={{ uri: item.image }}
-          style={{ width: imageWidth, height: imageHeight, borderRadius: 8 }}
+          style={{
+            width: imageWidth,
+            height: carouselImageHeight,
+            borderRadius: 8,
+          }}
         />
       </View>
     );
@@ -53,14 +57,14 @@ const Carousel = () => {
         data={carousels}
         renderItem={renderItem}
         width={slideWidth}
-        height={imageHeight}
+        height={carouselImageHeight}
         mode='parallax'
         onProgressChange={progress}
         modeConfig={{
           parallaxScrollingScale: 1,
           parallaxScrollingOffset: 20,
         }}
-        autoPlayInterval={3000}
+        autoPlayInterval={5000}
         onSnapToItem={handleSnapToItem}
       />
       <Pagination.Basic

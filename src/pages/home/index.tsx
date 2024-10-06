@@ -3,19 +3,21 @@ import {
   ActivityIndicator,
   FlatList,
   ListRenderItemInfo,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
   Text,
   View,
 } from 'react-native';
 import { useAppDispatch, useAppSelector } from '~/hooks/state';
 import { fetchCarousel, fetchChannel, fetchGuess } from '~/models/home';
 import { ChannelItem } from '~/types/home';
-import Carousel from './carousel';
+import Carousel, { carouselImageHeight } from './carousel';
 import ChannelView from './channelItem';
 import Guess from './guess';
 
 const Home = () => {
   const state = useReactive({ page: 1, refreshing: false });
-  const { channels } = useAppSelector((s) => s.home);
+  const { channels, gradientVisible } = useAppSelector((s) => s.home);
   const dispatch = useAppDispatch();
   useMount(() => {
     dispatch(fetchCarousel());
@@ -23,14 +25,11 @@ const Home = () => {
     dispatch(fetchChannel(state.page));
   });
 
-  const onChannelPress = (item: ChannelItem) => {
-    console.log('onChannelPress', item);
-  };
+  const onChannelPress = (item: ChannelItem) => {};
 
   const onEndReached = () => {
     const isShowMore = channels.results.length < channels.pagination.total;
     if (isShowMore) {
-      console.log('qingqiu');
       state.page++;
       dispatch(fetchChannel(state.page));
     }
@@ -50,7 +49,9 @@ const Home = () => {
   const headerComponent = (
     <View className='mt-2.5'>
       <Carousel />
-      <Guess />
+      <View className='bg-white'>
+        <Guess />
+      </View>
     </View>
   );
   const footerComponent = () => {
@@ -77,6 +78,17 @@ const Home = () => {
       </View>
     );
   };
+  const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const { contentOffset } = event.nativeEvent;
+    const { y } = contentOffset;
+    const newGradientVisible = y < carouselImageHeight;
+    if (newGradientVisible !== gradientVisible) {
+      dispatch({
+        type: 'home/setGradientVisible',
+        payload: newGradientVisible,
+      });
+    }
+  };
 
   return (
     <FlatList<ChannelItem>
@@ -90,6 +102,7 @@ const Home = () => {
       ListEmptyComponent={listEmptyComponent}
       onRefresh={onRefresh}
       refreshing={state.refreshing}
+      onScroll={onScroll}
     />
   );
 };
