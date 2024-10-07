@@ -7,6 +7,7 @@ import coverRight from '~/assets/image/cover-right.png';
 import { useAppDispatch, useAppSelector } from '~/hooks/state';
 import { fetchAlbumDetail } from '~/models/album';
 import { RootStackParamList } from '~/navigator';
+import Tab from './tab';
 
 const Album = () => {
   const height = useHeaderHeight();
@@ -63,7 +64,12 @@ const Album = () => {
     );
   };
 
-  return <View>{renderHeader()}</View>;
+  return (
+    <View className='flex-1'>
+      {renderHeader()}
+      <Tab />
+    </View>
+  );
 };
 
 export default Album;

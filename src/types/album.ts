@@ -4,7 +4,7 @@ export interface IAlbumData {
   title: string;
   author: IAlbumAuthor;
   introduction: string;
-  list: IAlbumList[];
+  list: IAlbumItem[];
   summary: string;
 }
 
@@ -15,7 +15,7 @@ export interface IAlbumAuthor {
   avatar: string;
 }
 
-export interface IAlbumList {
+export interface IAlbumItem {
   id: string;
   title: string;
   playVolume: number;
