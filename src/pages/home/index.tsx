@@ -60,7 +60,7 @@ const Home = () => {
     if (isShowLoading) {
       return (
         <View className='mb-1 items-center'>
-          <ActivityIndicator size='small' color='#0000ff' />
+          <ActivityIndicator color='#0000ff' size='small' />
         </View>
       );
     } else {
@@ -92,16 +92,16 @@ const Home = () => {
 
   return (
     <FlatList<IChannelItem>
-      ListHeaderComponent={headerComponent}
       data={channels.results}
-      renderItem={renderChannelItem}
       keyExtractor={(item) => item.id}
+      ListEmptyComponent={listEmptyComponent}
+      ListFooterComponent={footerComponent}
+      ListHeaderComponent={headerComponent}
+      refreshing={state.refreshing}
+      renderItem={renderChannelItem}
       onEndReached={onEndReached}
       onEndReachedThreshold={0.2}
-      ListFooterComponent={footerComponent}
-      ListEmptyComponent={listEmptyComponent}
       onRefresh={onRefresh}
-      refreshing={state.refreshing}
       onScroll={onScroll}
     />
   );

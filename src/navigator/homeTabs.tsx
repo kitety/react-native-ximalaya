@@ -5,14 +5,31 @@ import {
 import { useAppSelector } from '~/hooks/state';
 import Home from '~/pages/home';
 import TopTabBarWrapper from '~/pages/views/topTabBarWrapper';
+import { ICategory } from '~/types/category';
 
-const Tab = createMaterialTopTabNavigator();
+type HomeParamList = {
+  [key: string]: undefined;
+};
+const Tab = createMaterialTopTabNavigator<HomeParamList>();
 
 const HomeTabs = () => {
   const renderTabBar = (props: MaterialTopTabBarProps) => {
     return <TopTabBarWrapper {...props} />;
   };
   const { gradientVisible } = useAppSelector((s) => s.home);
+  const { myCategories } = useAppSelector((s) => s.category);
+
+  const renderScreen = (item: ICategory) => {
+    return (
+      <Tab.Screen
+        component={Home}
+        name={item.id}
+        options={{
+          tabBarLabel: item.name,
+        }}
+      />
+    );
+  };
   return (
     <Tab.Navigator
       tabBar={renderTabBar}
@@ -42,13 +59,7 @@ const HomeTabs = () => {
         lazy: true,
         tabBarBounces: true,
       }}>
-      <Tab.Screen
-        component={Home}
-        name='home'
-        options={{
-          tabBarLabel: '推荐',
-        }}
-      />
+      {myCategories.map(renderScreen)}
     </Tab.Navigator>
   );
 };
