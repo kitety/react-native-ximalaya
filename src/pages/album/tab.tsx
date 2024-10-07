@@ -13,10 +13,7 @@ interface IRoute {
   key: string;
   title: string;
 }
-interface IState {
-  routes: IRoute[];
-  index: number;
-}
+
 const Tab = () => {
   const state = useReactive({ index: 1 });
   const onIndexChange = (index: number) => {
