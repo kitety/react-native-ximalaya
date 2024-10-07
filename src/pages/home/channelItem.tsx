@@ -16,8 +16,8 @@ const ChannelView: FC<IChannelItemProps> = ({ item, onPress }) => {
     <Touchable onPress={handlePress}>
       <View className='shadow-gray-500-700 m-2.5  flex-row rounded-lg bg-white p-2.5 shadow'>
         <Image
-          source={{ uri: item.image }}
           className='mr-2.5 h-[100px] w-[100px] rounded-lg bg-[#dedede]'
+          source={{ uri: item.image }}
         />
         <View className='flex-1'>
           <Text className='mb-2.5 text-base' numberOfLines={1}>

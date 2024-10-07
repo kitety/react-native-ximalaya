@@ -62,42 +62,42 @@ const BottomTabs = () => {
         headerShown: false,
       }}>
       <Tab.Screen
-        name='HomeTabs'
         component={HomeTabs}
+        name='HomeTabs'
         options={{
           tabBarLabel: '首页',
           tabBarIcon: ({ color, size }) => (
-            <Icon name='icon-shouye' size={size} color={color} />
+            <Icon color={color} name='icon-shouye' size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name='Listen'
         component={Listen}
+        name='Listen'
         options={{
           tabBarLabel: '我听',
           tabBarIcon: ({ color, size }) => (
-            <Icon name='icon-shoucang' size={size} color={color} />
+            <Icon color={color} name='icon-shoucang' size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name='Found'
         component={Found}
+        name='Found'
         options={{
           tabBarLabel: '发现',
           tabBarIcon: ({ color, size }) => (
-            <Icon name='icon-faxian' size={size} color={color} />
+            <Icon color={color} name='icon-faxian' size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name='Account'
         component={Account}
+        name='Account'
         options={{
           tabBarLabel: '我的',
           tabBarIcon: ({ color, size }) => (
-            <Icon name='icon-user' size={size} color={color} />
+            <Icon color={color} name='icon-user' size={size} />
           ),
         }}
       />

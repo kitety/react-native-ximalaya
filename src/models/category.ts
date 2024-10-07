@@ -1,6 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { load } from '~/config/storage';
+import storage, { load } from '~/config/storage';
 import { RootState } from '~/config/store';
+import { myBaseCategories } from '~/const/model/category';
 import { ICategory } from '~/types/category';
 
 export interface ICategoryState {
@@ -9,16 +10,6 @@ export interface ICategoryState {
   isEditing: boolean;
 }
 
-const myBaseCategories = [
-  {
-    id: 'home',
-    name: '推荐',
-  },
-  {
-    id: 'vip',
-    name: 'VIP',
-  },
-];
 const initialState: ICategoryState = {
   myCategories: [...myBaseCategories],
   allCategories: [],
@@ -32,6 +23,7 @@ export const loadCategory = createAsyncThunk(
       load({ key: 'myCategories' }),
       load({ key: 'allCategories' }),
     ]);
+
     return { myCategories, allCategories };
   },
 );
@@ -41,8 +33,23 @@ export const toggleEditing = createAsyncThunk<
   { state: RootState }
 >('category/toggleEditing', async (_, thunkAPI) => {
   const state = thunkAPI.getState();
-  const currentEditingState = state.category.isEditing;
-  console.log('currentEditingState', currentEditingState);
+  const {
+    myCategories,
+    allCategories,
+    isEditing: currentEditingState,
+  } = state.category;
+
+  // 正在编辑，然后保存数据，同步数据
+  if (currentEditingState) {
+    await storage.save({
+      key: 'myCategories',
+      data: myCategories,
+    });
+    await storage.save({
+      key: 'allCategories',
+      data: allCategories,
+    });
+  }
   return !currentEditingState;
 });
 

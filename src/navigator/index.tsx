@@ -49,22 +49,22 @@ const Navigator = () => {
           },
         }}>
         <Stack.Screen
-          name='BottomTabs'
           component={BottomTabs}
+          name='BottomTabs'
           options={{
             title: '首页',
           }}
         />
         <Stack.Screen
-          name='Category'
           component={Category}
+          name='Category'
           options={{
             title: '分类',
           }}
         />
         <Stack.Screen
-          name='Detail'
           component={Detail}
+          name='Detail'
           options={{
             title: '详情',
           }}

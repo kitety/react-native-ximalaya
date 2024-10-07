@@ -43,8 +43,8 @@ const HomeTabs = () => {
         tabBarBounces: true,
       }}>
       <Tab.Screen
-        name='home'
         component={Home}
+        name='home'
         options={{
           tabBarLabel: '推荐',
         }}

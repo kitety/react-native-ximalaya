@@ -19,5 +19,15 @@ module.exports = {
         },
       },
     ],
+    'react/jsx-sort-props': [
+      'error',
+      {
+        callbacksLast: true,
+        shorthandFirst: true,
+        noSortAlphabetically: false,
+        ignoreCase: true,
+        multiline: 'last',
+      },
+    ],
   },
 };

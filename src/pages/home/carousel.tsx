@@ -49,35 +49,31 @@ const Carousel = () => {
   };
 
   return (
-    <View>
+    <View className='mb-4'>
       <SnapCarousel<ICarouselItem>
         autoPlay
-        ref={ref}
         pagingEnabled
+        autoPlayInterval={5000}
         data={carousels}
-        renderItem={renderItem}
-        width={slideWidth}
         height={carouselImageHeight}
         mode='parallax'
-        onProgressChange={progress}
+        ref={ref}
+        renderItem={renderItem}
+        width={slideWidth}
         modeConfig={{
           parallaxScrollingScale: 1,
           parallaxScrollingOffset: 20,
         }}
-        autoPlayInterval={5000}
+        onProgressChange={progress}
         onSnapToItem={handleSnapToItem}
       />
       <Pagination.Basic
-        progress={progress}
         data={carousels}
-        dotStyle={{
-          backgroundColor: 'rgba(255,255,255,0.4)',
-          borderRadius: 100,
-        }}
+        progress={progress}
+        size={6}
         activeDotStyle={{
           backgroundColor: '#f86442',
         }}
-        size={6}
         containerStyle={{
           gap: 8,
           marginTop: -20,
@@ -85,6 +81,10 @@ const Carousel = () => {
           backgroundColor: 'rgba(0,0,0,0.35)',
           paddingHorizontal: 10,
           paddingVertical: 4,
+        }}
+        dotStyle={{
+          backgroundColor: 'rgba(255,255,255,0.4)',
+          borderRadius: 100,
         }}
         onPress={onPressPagination}
       />
