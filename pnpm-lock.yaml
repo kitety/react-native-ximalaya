@@ -65,6 +65,9 @@ importers:
       react-native-config:
         specifier: ^1.5.3
         version: 1.5.3
+      react-native-drag-sort:
+        specifier: ^2.4.4
+        version: 2.4.4
       react-native-gesture-handler:
         specifier: ~2.16.1
         version: 2.16.2(react-native@0.74.5(@babel/core@7.25.7)(@babel/preset-env@7.25.7(@babel/core@7.25.7))(@types/react@18.2.79)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)
@@ -4292,6 +4295,9 @@ packages:
         optional: true
       react-native-svg:
         optional: true
+
+  react-native-drag-sort@2.4.4:
+    resolution: {integrity: sha512-MixkgMzybt8tn9m850YK5VOSlicytV41mOp/b1gAE7cK94bou27ApvVJH9oCM61vY5EN6g9VT5PwLOahbYc+BQ==}
 
   react-native-gesture-handler@2.16.2:
     resolution: {integrity: sha512-vGFlrDKlmyI+BT+FemqVxmvO7nqxU33cgXVsn6IKAFishvlG3oV2Ds67D5nPkHMea8T+s1IcuMm0bF8ntZtAyg==}
@@ -10568,6 +10574,8 @@ snapshots:
       react-native-svg: 15.7.1(react-native@0.74.5(@babel/core@7.25.7)(@babel/preset-env@7.25.7(@babel/core@7.25.7))(@types/react@18.2.79)(encoding@0.1.13)(react@18.2.0))(react@18.2.0)
     transitivePeerDependencies:
       - supports-color
+
+  react-native-drag-sort@2.4.4: {}
 
   react-native-gesture-handler@2.16.2(react-native@0.74.5(@babel/core@7.25.7)(@babel/preset-env@7.25.7(@babel/core@7.25.7))(@types/react@18.2.79)(encoding@0.1.13)(react@18.2.0))(react@18.2.0):
     dependencies:

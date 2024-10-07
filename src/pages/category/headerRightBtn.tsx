@@ -1,12 +1,13 @@
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
-import { useAppSelector } from '~/hooks/state';
-
 interface IHeaderRightBtnProps {
   onToggleEditing: () => void;
+  isEditing: boolean;
 }
-const HeaderRightBtn = ({ onToggleEditing }: IHeaderRightBtnProps) => {
-  const { isEditing } = useAppSelector((s) => s.category);
+const HeaderRightBtn = ({
+  onToggleEditing,
+  isEditing,
+}: IHeaderRightBtnProps) => {
   return (
     <HeaderButtons>
       <Item title={isEditing ? '完成' : '编辑'} onPress={onToggleEditing} />

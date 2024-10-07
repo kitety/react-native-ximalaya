@@ -10,8 +10,11 @@ interface ICategoryItem {
   selected: boolean;
   disabled?: boolean;
 }
-const parentWidth = viewportWidth - 10;
-const itemWidth = parentWidth / 4;
+export const parentWidth = viewportWidth - 10;
+export const itemWidth = parentWidth / 4;
+export const itemHeight = 48;
+export const itemMargin = 4;
+
 const CategoryItem: FC<ICategoryItem> = ({
   item,
   isEditing,
@@ -24,7 +27,7 @@ const CategoryItem: FC<ICategoryItem> = ({
         className={clsx(
           'm-1 flex-1 flex-row items-center justify-center rounded bg-white',
           {
-            'bg-[#ccc]': disabled,
+            '!bg-[#ccc]': disabled,
           },
         )}>
         <Text key={item.id}>{item.name}</Text>
