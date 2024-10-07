@@ -1,13 +1,14 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, RouteProp } from '@react-navigation/native';
 import {
   CardStyleInterpolators,
-  createStackNavigator,
   HeaderStyleInterpolators,
   StackNavigationProp,
+  createStackNavigator,
 } from '@react-navigation/stack';
-import { Platform, StatusBar, StyleSheet } from 'react-native';
+import { Animated, Platform, StatusBar, StyleSheet } from 'react-native';
+import Album from '~/pages/album';
 import Category from '~/pages/category';
-import Detail from '~/pages/detail';
+import { IGuessItem } from '~/types/home';
 import BottomTabs, { BottomTabParamList } from './bottomTabs';
 
 export type RootStackParamList = {
@@ -15,14 +16,29 @@ export type RootStackParamList = {
     screen: keyof BottomTabParamList;
   };
   Category: undefined;
-  Detail: {
-    id: number;
-  };
+  Album: IGuessItem;
 };
 
 export type RootStackNavigation = StackNavigationProp<RootStackParamList>;
 
 const Stack = createStackNavigator<RootStackParamList>();
+
+const getAlbumOptions = ({
+  route,
+}: {
+  route: RouteProp<RootStackParamList, 'Album'>;
+}) => {
+  return {
+    title: route.params.title,
+    headerTransparent: true,
+    headerTitleStyle: {
+      opacity: 0,
+    },
+    headerBackground: () => (
+      <Animated.View className='flex-1 bg-white opacity-0'></Animated.View>
+    ),
+  };
+};
 
 const Navigator = () => {
   return (
@@ -63,11 +79,9 @@ const Navigator = () => {
           }}
         />
         <Stack.Screen
-          component={Detail}
-          name='Detail'
-          options={{
-            title: '详情',
-          }}
+          component={Album}
+          name='Album'
+          options={getAlbumOptions}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -1,11 +1,14 @@
+import { useNavigation } from '@react-navigation/native';
 import { FlatList, Image, Text, View } from 'react-native';
 import Icon from '~/assets/iconfont';
 import Touchable from '~/components/touchable';
 import { useAppDispatch, useAppSelector } from '~/hooks/state';
 import { fetchGuess } from '~/models/home';
+import { RootStackNavigation } from '~/navigator';
 import { IGuessItem } from '~/types/home';
 
 const Guess = () => {
+  const navigation = useNavigation<RootStackNavigation>();
   const dispatch = useAppDispatch();
   const { guesses } = useAppSelector((s) => s.home);
   const handleRefresh = () => {
@@ -13,8 +16,16 @@ const Guess = () => {
   };
   const renderItem = ({ item }: { item: IGuessItem }) => {
     return (
-      <Touchable className='mx-2.5 my-1.5 flex-1' onPress={() => {}}>
-        <Image source={{ uri: item.image }} className='h-24 w-full rounded' />
+      <Touchable
+        className='mx-2.5 my-1.5 flex-1'
+        onPress={() => {
+          navigation.navigate('Album', {
+            id: item.id,
+            title: item.title,
+            image: item.image,
+          });
+        }}>
+        <Image className='h-24 w-full rounded' source={{ uri: item.image }} />
         <Text className='mt-2.5' numberOfLines={2}>
           {item.title}
         </Text>
@@ -37,17 +48,17 @@ const Guess = () => {
       </View>
       <FlatList
         className='p-2.5'
-        numColumns={3}
         data={guesses}
-        renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        numColumns={3}
+        renderItem={renderItem}
       />
       <Touchable
         className='flex-row items-center justify-center p-2.5'
         onPress={() => {
           handleRefresh();
         }}>
-        <Icon name='icon-huanyipi' size={16} color='#ff0000' />
+        <Icon color='#ff0000' name='icon-huanyipi' size={16} />
         <Text className='mb-1 ml-1.5 text-[#6f6f6f]'>换一批</Text>
       </Touchable>
     </View>

@@ -23,6 +23,7 @@ const HomeTabs = () => {
     return (
       <Tab.Screen
         component={Home}
+        key={item.id}
         name={item.id}
         options={{
           tabBarLabel: item.name,

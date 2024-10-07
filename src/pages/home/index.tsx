@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { useMount, useReactive } from 'ahooks';
 import {
   ActivityIndicator,
@@ -10,12 +11,14 @@ import {
 } from 'react-native';
 import { useAppDispatch, useAppSelector } from '~/hooks/state';
 import { fetchCarousel, fetchChannel, fetchGuess } from '~/models/home';
+import { RootStackNavigation } from '~/navigator';
 import { IChannelItem } from '~/types/home';
 import Carousel, { carouselImageHeight } from './carousel';
 import ChannelView from './channelItem';
 import Guess from './guess';
 
 const Home = () => {
+  const navigation = useNavigation<RootStackNavigation>();
   const state = useReactive({ page: 1, refreshing: false });
   const { channels, gradientVisible } = useAppSelector((s) => s.home);
   const dispatch = useAppDispatch();
@@ -25,7 +28,13 @@ const Home = () => {
     dispatch(fetchChannel(state.page));
   });
 
-  const onChannelPress = (item: IChannelItem) => {};
+  const onChannelPress = (item: IChannelItem) => {
+    navigation.navigate('Album', {
+      id: item.id,
+      title: item.title,
+      image: item.image,
+    });
+  };
 
   const onEndReached = () => {
     const isShowMore = channels.results.length < channels.pagination.total;
