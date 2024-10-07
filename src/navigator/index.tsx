@@ -6,11 +6,14 @@ import {
   TransitionPresets,
   createStackNavigator,
 } from '@react-navigation/stack';
-import { Animated, Platform, StatusBar, StyleSheet } from 'react-native';
+import clsx from 'clsx';
+import { Animated, Platform, StatusBar, StyleSheet, View } from 'react-native';
+import Icon from '~/assets/iconfont';
 import Album from '~/pages/album';
 import Category from '~/pages/category';
 import Detail from '~/pages/detail';
 import { IGuessItem } from '~/types/home';
+import { isIOS } from '~/utils';
 import BottomTabs, { BottomTabParamList } from './bottomTabs';
 
 export type RootStackParamList = {
@@ -36,6 +39,7 @@ const getAlbumOptions = ({
     headerTitleStyle: {
       opacity: 0,
     },
+    headerTintColor: '#fff',
     headerBackground: () => (
       <Animated.View className='flex-1 bg-white opacity-0'></Animated.View>
     ),
@@ -116,6 +120,17 @@ const ModalStackScreen = () => {
           animationTypeForReplace: 'push',
           animationEnabled: true,
           cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+          headerTintColor: '#fff',
+          headerTitle: '',
+          headerTransparent: true,
+          cardStyle: {
+            backgroundColor: '#807c66',
+          },
+          headerBackImage: ({ tintColor }) => (
+            <View className={clsx('-rotate-90', { 'mx-2': isIOS })}>
+              <Icon color={tintColor} name='icon-fanhui1' size={30} />
+            </View>
+          ),
         }}
       />
     </ModalStack.Navigator>
