@@ -1,8 +1,10 @@
 import axios from 'axios';
 
+console.log('process.env.EXPO_PUBLIC_API_URL', process.env.EXPO_PUBLIC_API_URL);
+
 const axiosIns = axios.create({
   timeout: 60 * 1000,
-  baseURL: 'http://192.168.0.8:40001/mock/11',
+  baseURL: process.env.EXPO_PUBLIC_API_URL!,
 });
 
 // 请求拦截器

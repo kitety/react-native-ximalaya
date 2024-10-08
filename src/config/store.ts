@@ -3,12 +3,14 @@ import devToolsEnhancer from 'redux-devtools-expo-dev-plugin';
 import albumReducer from '~/models/album';
 import categoryReducer from '~/models/category';
 import homeReducer from '~/models/home';
+import playerReducer from '~/models/player';
 
 export const store = configureStore({
   reducer: {
     home: homeReducer,
     category: categoryReducer,
     album: albumReducer,
+    player: playerReducer,
   },
   devTools: false,
   enhancers: (getDefaultEnhancers) =>

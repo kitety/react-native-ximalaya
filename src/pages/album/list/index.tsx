@@ -15,7 +15,7 @@ const List = () => {
         index={index}
         key={item.id}
         onPress={() => {
-          navigation.navigate('Detail');
+          navigation.navigate('Detail', { id: item.id });
         }}
       />
     );
@@ -24,7 +24,7 @@ const List = () => {
     <FlatList<IAlbumItem>
       className='mb-6 bg-[#fff]'
       data={list}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => String(item.id)}
       renderItem={renderItem}
     />
   );

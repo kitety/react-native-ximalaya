@@ -16,7 +16,7 @@ export interface IAlbumAuthor {
 }
 
 export interface IAlbumItem {
-  id: string;
+  id: number;
   title: string;
   playVolume: number;
   duration: string;

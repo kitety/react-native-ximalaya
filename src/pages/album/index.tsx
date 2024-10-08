@@ -1,24 +1,26 @@
 import { useHeaderHeight } from '@react-navigation/elements';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import { useMount } from 'ahooks';
 import { BlurView } from 'expo-blur';
 import { Image, Text, View } from 'react-native';
 import coverRight from '~/assets/image/cover-right.png';
 import { useAppDispatch, useAppSelector } from '~/hooks/state';
 import { fetchAlbumDetail } from '~/models/album';
+import { playSound } from '~/models/player';
 import { RootStackParamList } from '~/navigator';
 import Tab from './tab';
 
 const Album = () => {
   const height = useHeaderHeight();
   const album = useAppSelector((s) => s.album);
-  const navigation = useNavigation();
   const route = useRoute<RouteProp<RootStackParamList, 'Album'>>();
-  const { id, title, image } = route.params;
+  const { id, image } = route.params;
   const dispatch = useAppDispatch();
 
   useMount(() => {
-    dispatch(fetchAlbumDetail(id));
+    dispatch(fetchAlbumDetail(id)).then(() => {
+      dispatch(playSound());
+    });
   });
   const renderHeader = () => {
     return (

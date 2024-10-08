@@ -90,7 +90,9 @@ const RootStackScreen = () => {
 
 export type ModalStackParamList = {
   Root: undefined;
-  Detail: undefined;
+  Detail: {
+    id: number;
+  };
 };
 
 const ModalStack = createStackNavigator<ModalStackParamList>();
