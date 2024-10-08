@@ -8,6 +8,7 @@ export interface IPlayerState extends IPlayerItem {
   playStatus: 'playing' | 'pause' | 'stop' | 'initialed' | 'unset';
   durationMillis: number;
   positionMillis: number;
+  songIds: number[];
 }
 
 const initialState: IPlayerState = {
@@ -19,15 +20,19 @@ const initialState: IPlayerState = {
   playStatus: 'playing',
   durationMillis: 0,
   positionMillis: 0,
+  songIds: [],
 };
 
 // 获取节目以及初始化音频
 export const playerLoadShow = createAsyncThunk(
   'player/loadShow',
-  async (
-    url: string,
-    onPlaybackStatusUpdate: (status: AVPlaybackStatus) => void,
-  ) => {
+  async ({
+    url,
+    onPlaybackStatusUpdate,
+  }: {
+    url: string;
+    onPlaybackStatusUpdate: (status: AVPlaybackStatus) => void;
+  }) => {
     const res = await getShow();
     const data = res.data;
     await init(url, onPlaybackStatusUpdate);
@@ -48,6 +53,9 @@ export const playerSlice = createSlice({
   name: 'player',
   initialState,
   reducers: {
+    reset: (state) => {
+      return { ...initialState, songIds: state.songIds };
+    },
     setState: (state, action: PayloadAction<{ isEditing: boolean }>) => {
       return {
         ...state,
@@ -56,6 +64,9 @@ export const playerSlice = createSlice({
         durationMillis: 0,
         positionMillis: 0,
       };
+    },
+    setSongIds: (state, action: PayloadAction<{ songIds: number[] }>) => {
+      state.songIds = action.payload.songIds;
     },
     setDuration: (state, action: PayloadAction<number>) => {
       state.durationMillis = action.payload;
@@ -70,11 +81,11 @@ export const playerSlice = createSlice({
       return { ...state, ...action.payload, playStatus: 'initialed' };
     });
     // 调用播放，就是播放中
-    builder.addCase(playSound.fulfilled, (state, action) => {
+    builder.addCase(playSound.fulfilled, (state) => {
       state.playStatus = 'playing';
     });
     // 暂停
-    builder.addCase(playPause.fulfilled, (state, action) => {
+    builder.addCase(playPause.fulfilled, (state) => {
       state.playStatus = 'pause';
     });
   },
