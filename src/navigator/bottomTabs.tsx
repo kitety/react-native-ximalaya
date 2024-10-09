@@ -10,6 +10,7 @@ import Icon from '~/assets/iconfont';
 import Account from '~/pages/account';
 import Found from '~/pages/found';
 import Listen from '~/pages/listen';
+import Play from '~/pages/views/play';
 import { RootStackParamList } from '.';
 import HomeTabs from './homeTabs';
 
@@ -18,9 +19,10 @@ export type BottomTabParamList = {
   Listen: undefined;
   Found: undefined;
   Account: undefined;
+  Play: undefined;
 };
 const Tab = createBottomTabNavigator<BottomTabParamList>();
-type Route = RouteProp<RootStackParamList, 'BottomTabs'> & {
+export type Route = RouteProp<RootStackParamList, 'BottomTabs'> & {
   state?: TabNavigationState<{}>;
 };
 
@@ -79,6 +81,13 @@ const BottomTabs = () => {
           tabBarIcon: ({ color, size }) => (
             <Icon color={color} name='icon-shoucang' size={size} />
           ),
+        }}
+      />
+      <Tab.Screen
+        component={Play}
+        name='Play'
+        options={{
+          tabBarButton: () => <Play />,
         }}
       />
       <Tab.Screen

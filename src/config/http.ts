@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-console.log('process.env.EXPO_PUBLIC_API_URL', process.env.EXPO_PUBLIC_API_URL);
-
 const axiosIns = axios.create({
   timeout: 60 * 1000,
   baseURL: process.env.EXPO_PUBLIC_API_URL!,

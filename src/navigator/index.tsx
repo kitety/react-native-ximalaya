@@ -1,4 +1,8 @@
-import { NavigationContainer, RouteProp } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  NavigationState,
+  RouteProp,
+} from '@react-navigation/native';
 import {
   CardStyleInterpolators,
   HeaderStyleInterpolators,
@@ -6,14 +10,17 @@ import {
   TransitionPresets,
   createStackNavigator,
 } from '@react-navigation/stack';
+import { useReactive } from 'ahooks';
 import clsx from 'clsx';
 import { Animated, Platform, StatusBar, StyleSheet, View } from 'react-native';
 import Icon from '~/assets/iconfont';
 import Album from '~/pages/album';
 import Category from '~/pages/category';
 import Detail from '~/pages/detail';
+import PlayView from '~/pages/views/playView';
 import { IGuessItem } from '~/types/home';
 import { isIOS } from '~/utils';
+import { getActiveRouteName } from '~/utils/route';
 import BottomTabs, { BottomTabParamList } from './bottomTabs';
 
 export type RootStackParamList = {
@@ -91,7 +98,7 @@ const RootStackScreen = () => {
 export type ModalStackParamList = {
   Root: undefined;
   Detail: {
-    id: number;
+    id: string;
   };
 };
 
@@ -140,9 +147,19 @@ const ModalStackScreen = () => {
 };
 
 const Navigator = () => {
+  const s = useReactive({
+    routeName: 'Root',
+  });
+  const onStateChange = (state: NavigationState | undefined) => {
+    if (state) {
+      const routeName = getActiveRouteName(state);
+      s.routeName = routeName;
+    }
+  };
   return (
-    <NavigationContainer>
+    <NavigationContainer onStateChange={onStateChange}>
       <ModalStackScreen />
+      <PlayView routeName={s.routeName} />
     </NavigationContainer>
   );
 };

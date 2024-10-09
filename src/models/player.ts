@@ -7,10 +7,12 @@ export interface IPlayerState extends IPlayerItem {
   isPlaying: boolean;
   durationMillis: number;
   positionMillis: number;
-  songIds: number[];
+  songIds: string[];
+  currentPlayId: string;
 }
 
 const initialState: IPlayerState = {
+  currentPlayId: '',
   id: '',
   title: '',
   thumbnailUrl: '',
@@ -45,9 +47,14 @@ export const playerSlice = createSlice({
   name: 'player',
   initialState,
   reducers: {
-    reset: (state) => {
-      return { ...initialState, songIds: state.songIds };
+    setIdAndReset: (state, action: PayloadAction<string>) => {
+      return {
+        ...initialState,
+        songIds: state.songIds,
+        currentPlayId: action.payload,
+      };
     },
+
     setState: (state, action: PayloadAction<{ isEditing: boolean }>) => {
       return {
         ...state,
@@ -57,8 +64,11 @@ export const playerSlice = createSlice({
         positionMillis: 0,
       };
     },
-    setSongIds: (state, action: PayloadAction<{ songIds: number[] }>) => {
+    setSongIds: (state, action: PayloadAction<{ songIds: string[] }>) => {
       state.songIds = action.payload.songIds;
+    },
+    setPositionMillis: (state, action: PayloadAction<number>) => {
+      state.positionMillis = action.payload;
     },
 
     updatePlayStatus: (

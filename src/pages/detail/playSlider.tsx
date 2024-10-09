@@ -1,12 +1,24 @@
 import Slider from '@react-native-community/slider';
+import { useThrottleFn } from 'ahooks';
 import { Text, View } from 'react-native';
 import soundManager from '~/config/sound';
-import { useAppSelector } from '~/hooks/state';
+import { useAppDispatch, useAppSelector } from '~/hooks/state';
 import { formatTime } from '~/utils/time';
 
 const PlaySlider = () => {
+  const dispatch = useAppDispatch();
   const { positionMillis, durationMillis } = useAppSelector((s) => s.player);
   const textClassName = 'text-white text-sm';
+
+  const { run: onValueChange } = useThrottleFn(
+    (value: number) => {
+      dispatch({
+        type: 'player/setPositionMillis',
+        payload: value,
+      });
+    },
+    { wait: 50 },
+  );
 
   return (
     <View className='mx-2'>
@@ -23,8 +35,9 @@ const PlaySlider = () => {
         minimumValue={0}
         thumbTintColor='#333'
         value={positionMillis}
-        onValueChange={soundManager.setCurrentTime}
-        onSlidingComplete={() => {
+        onValueChange={onValueChange}
+        onSlidingComplete={async (value: number) => {
+          await soundManager.setCurrentTime(value);
           soundManager.play();
         }}
         onSlidingStart={() => {

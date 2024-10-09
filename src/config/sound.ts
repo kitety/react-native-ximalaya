@@ -9,7 +9,7 @@ const init = async (
 ) => {
   // 调用init，传入新的url，旧的销毁
   await destroy();
-  console.log('初始化音频播放：', url);
+  // console.log('初始化音频播放：', url);
   const audio = await Audio.Sound.createAsync(
     { uri: url },
     { shouldPlay: true },
@@ -44,7 +44,6 @@ const getCurrentTime = async () => {
 };
 // 设置播放的时间
 const setCurrentTime = async (time: number) => {
-  console.log('设置播放时间：', time);
   await sound.setPositionAsync(time);
 };
 
@@ -57,7 +56,7 @@ const getDuration = async () => {
 };
 
 const destroy = async () => {
-  console.log('销毁音频播放器');
+  // console.log('销毁音频播放器');
   if (sound) {
     await sound.stopAsync();
     await sound.unloadAsync();

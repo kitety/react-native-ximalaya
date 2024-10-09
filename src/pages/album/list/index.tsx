@@ -13,11 +13,11 @@ const List = () => {
     dispatch({
       type: 'player/setSongIds',
       payload: {
-        songIds: list.map((item) => item.id),
+        songIds: list.map((item) => String(item.id)),
       },
     });
 
-    navigation.navigate('Detail', { id: item.id });
+    navigation.navigate('Detail', { id: String(item.id) });
   };
   const renderItem = ({ item, index }: ListRenderItemInfo<IAlbumItem>) => {
     return (

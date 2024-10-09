@@ -49,9 +49,8 @@ const Detail = () => {
   const route = useRoute<RouteProp<ModalStackParamList, 'Detail'>>();
   const animRef = useRef(new Animated.Value(1));
   const { id } = route.params;
-  const { isPlaying, songIds, title, thumbnailUrl } = useAppSelector(
-    (s) => s.player,
-  );
+  const { isPlaying, songIds, title, thumbnailUrl, currentPlayId } =
+    useAppSelector((s) => s.player);
 
   const currentIndex = songIds.indexOf(id);
   const previousId = songIds[currentIndex - 1];
@@ -70,17 +69,24 @@ const Detail = () => {
     [dispatch],
   );
   useEffect(() => {
-    // 需要先暂停一遍音乐
-    soundManager.pause();
-    dispatch({
-      type: 'player/reset',
-    });
-    const url = `https://music.163.com/song/media/outer/url?id=${id}`;
-    dispatch(playerLoadShow()).then(async () => {
-      await soundManager.init(url, onPlayStatusChange);
-      dispatch(playSound());
-    });
-  }, [id, dispatch, onPlayStatusChange]);
+    if (currentPlayId !== id) {
+      // 需要先暂停一遍音乐
+      soundManager.pause();
+      dispatch({
+        type: 'player/setIdAndReset',
+        payload: id,
+      });
+      const url = `https://music.163.com/song/media/outer/url?id=123456`;
+      dispatch(playerLoadShow()).then(async () => {
+        try {
+          await soundManager.init(url, onPlayStatusChange);
+          dispatch(playSound());
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    }
+  }, [currentPlayId, id, dispatch, onPlayStatusChange]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
