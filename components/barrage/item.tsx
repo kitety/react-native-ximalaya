@@ -2,13 +2,14 @@ import { useMount } from 'ahooks';
 import { memo, useRef } from 'react';
 import { Animated, Easing, Text } from 'react-native';
 import { viewportWidth } from '~/utils';
-import { IBarrageItem } from '.';
+import { IMessage } from '.';
 
 interface IBarrageItemProps {
-  item: IBarrageItem;
-  outside: (item: IBarrageItem) => void;
+  item: IMessage;
+  outside: (item: IMessage) => void;
+  trackIndex: number;
 }
-const BarrageItem = ({ item, outside }: IBarrageItemProps) => {
+const BarrageItem = ({ item, outside, trackIndex }: IBarrageItemProps) => {
   const translateXAnimRef = useRef(new Animated.Value(0));
   useMount(() => {
     Animated.timing(translateXAnimRef.current, {
@@ -22,14 +23,17 @@ const BarrageItem = ({ item, outside }: IBarrageItemProps) => {
       }
     });
   });
+  const width = item.text.length * 15;
   return (
     <Animated.View
       style={{
+        position: 'absolute',
+        top: trackIndex * 30,
         transform: [
           {
             translateX: translateXAnimRef.current.interpolate({
               inputRange: [0, 10],
-              outputRange: [viewportWidth, -100],
+              outputRange: [viewportWidth, -width],
             }),
           },
         ],

@@ -1,7 +1,7 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { useReactive } from 'ahooks';
 import clsx from 'clsx';
-import Barrage, { IBarrageItem } from 'components/barrage';
+import Barrage, { IMessage } from 'components/barrage';
 import { AVPlaybackStatus } from 'expo-av';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useCallback, useEffect, useRef } from 'react';
@@ -16,7 +16,7 @@ import { viewportWidth } from '~/utils';
 import PlaySlider from './playSlider';
 
 const imageWidth = 180;
-const paddingTop = (viewportWidth - imageWidth) / 2;
+export const paddingTop = (viewportWidth - imageWidth) / 2;
 const scaleValue = viewportWidth / imageWidth;
 
 const originBarrageTexts = [
@@ -36,7 +36,7 @@ const getRandomBarrageText = () => {
 };
 export interface IDetailState {
   barrageShow: boolean;
-  barrageTexts: IBarrageItem[];
+  barrageTexts: IMessage[];
 }
 
 const Detail = () => {
@@ -84,21 +84,22 @@ const Detail = () => {
   }, [id, dispatch, onPlayStatusChange]);
 
   useEffect(() => {
-    if (!state.barrageShow) {
-      console.log('clear array');
-      state.barrageTexts = [];
-    } else {
-      const timer = setInterval(() => {
-        console.log('create array item', state.barrageShow);
+    let timer: NodeJS.Timeout;
+    if (state.barrageShow) {
+      timer = setInterval(() => {
         const id = String(Math.random());
         const data = {
           id,
           text: getRandomBarrageText(),
+          isShown: false,
         };
         state.barrageTexts.push(data);
-      }, 4e3);
-      return () => clearInterval(timer);
+      }, 1000);
     }
+    return () => {
+      timer && clearInterval(timer);
+      state.barrageTexts = [];
+    };
   }, [state, state.barrageShow]);
 
   useEffect(() => {
@@ -130,10 +131,8 @@ const Detail = () => {
       useNativeDriver: true,
     }).start();
   };
-  const onBarrageOutside = (item: IBarrageItem) => {
-    state.barrageTexts = state.barrageTexts.filter(
-      (item) => item.id !== item.id,
-    );
+  const onBarrageOutside = (item: IMessage) => {
+    item.isShown = true;
   };
 
   return (
@@ -170,7 +169,11 @@ const Detail = () => {
               height: viewportWidth,
             }}
           />
-          <Barrage data={state.barrageTexts} outside={onBarrageOutside} />
+          <Barrage
+            data={state.barrageTexts}
+            maxTrack={6}
+            outside={onBarrageOutside}
+          />
         </>
       )}
       {/* 弹幕按钮 */}

@@ -1,22 +1,53 @@
 import React from 'react';
 import { View } from 'react-native';
+import { paddingTop } from '~/pages/detail';
 import BarrageItem from './item';
 
-export interface IBarrageItem {
+export interface IMessage {
   id: string;
   text: string;
+  isShown: boolean;
+}
+export interface IBarrage extends IMessage {
+  trackIndex: number;
+  isFree?: boolean;
 }
 
 interface IBarrageProps {
-  data: IBarrageItem[];
-  outside: (item: IBarrageItem) => void;
+  data: IMessage[];
+  maxTrack: number;
+  outside: (item: IMessage) => void;
 }
-const Barrage = ({ data, outside }: IBarrageProps) => {
+
+// listChunkData是一个二维数组，有maxTrack那么多列，广度优先填充
+const formatListChunkData = (list: IMessage[], maxTrack: number) => {
+  const listChunkData: IMessage[][] = [];
+  for (let i = 0; i < maxTrack; i++) {
+    listChunkData.push([]);
+  }
+
+  list.forEach((item, index) => {
+    const columnIndex = index % maxTrack;
+    listChunkData[columnIndex].push(item);
+  });
+  return listChunkData;
+};
+const Barrage = ({ data, outside, maxTrack }: IBarrageProps) => {
+  const listChunkData = formatListChunkData(data, maxTrack);
+  const renderCurrentLine = (items: IMessage[], index: number) =>
+    items
+      .filter((i) => !i.isShown)
+      .map((item) => (
+        <BarrageItem
+          item={item}
+          key={item.id}
+          outside={outside}
+          trackIndex={index}
+        />
+      ));
   return (
-    <View>
-      {data.map((item) => (
-        <BarrageItem item={item} key={item.id} outside={outside} />
-      ))}
+    <View className='absolute' style={{ top: paddingTop }}>
+      {listChunkData.map(renderCurrentLine)}
     </View>
   );
 };

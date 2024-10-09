@@ -9,8 +9,8 @@ export default function IndexApp() {
       <Navigator />
       <StatusBar
         backgroundColor='transparent'
-        translucent={true}
         style='dark'
+        translucent={true}
       />
     </Provider>
   );
