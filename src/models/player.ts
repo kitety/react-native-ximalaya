@@ -1,5 +1,4 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AVPlaybackStatus } from 'expo-av';
 import { getShow } from '~/api/player';
 import soundManager from '~/config/sound';
 import { IPlayerItem } from '~/types/player';
@@ -24,21 +23,10 @@ const initialState: IPlayerState = {
 };
 
 // 获取节目以及初始化音频
-export const playerLoadShow = createAsyncThunk(
-  'player/loadShow',
-  async ({
-    url,
-    onPlaybackStatusUpdate,
-  }: {
-    url: string;
-    onPlaybackStatusUpdate: (status: AVPlaybackStatus) => void;
-  }) => {
-    const res = await getShow();
-    const data = res.data;
-    await soundManager.init(url, onPlaybackStatusUpdate);
-    return data;
-  },
-);
+export const playerLoadShow = createAsyncThunk('player/loadShow', async () => {
+  const res = await getShow();
+  return res.data;
+});
 
 // 暂停资源
 export const playPause = createAsyncThunk('player/pauseSound', () =>
