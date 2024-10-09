@@ -49,11 +49,10 @@ const Detail = () => {
   const route = useRoute<RouteProp<ModalStackParamList, 'Detail'>>();
   const animRef = useRef(new Animated.Value(1));
   const { id } = route.params;
-  const { playStatus, songIds, title, thumbnailUrl } = useAppSelector(
+  const { isPlaying, songIds, title, thumbnailUrl } = useAppSelector(
     (s) => s.player,
   );
 
-  const isPlaying = playStatus === 'playing';
   const currentIndex = songIds.indexOf(id);
   const previousId = songIds[currentIndex - 1];
   const nextId = songIds[currentIndex + 1];
@@ -62,10 +61,10 @@ const Detail = () => {
       const { isLoaded } = status;
       if (isLoaded) {
         const { durationMillis, positionMillis, isPlaying } = status;
-        if (isPlaying) {
-          dispatch({ type: 'player/setDuration', payload: durationMillis });
-          dispatch({ type: 'player/setPosition', payload: positionMillis });
-        }
+        dispatch({
+          type: 'player/updatePlayStatus',
+          payload: { durationMillis, positionMillis, isPlaying },
+        });
       }
     },
     [dispatch],

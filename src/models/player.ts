@@ -4,7 +4,7 @@ import soundManager from '~/config/sound';
 import { IPlayerItem } from '~/types/player';
 
 export interface IPlayerState extends IPlayerItem {
-  playStatus: 'playing' | 'pause' | 'stop' | 'initialed' | 'unset';
+  isPlaying: boolean;
   durationMillis: number;
   positionMillis: number;
   songIds: number[];
@@ -16,7 +16,7 @@ const initialState: IPlayerState = {
   thumbnailUrl: '',
   soundUrl: '',
   description: '',
-  playStatus: 'playing',
+  isPlaying: false,
   durationMillis: 0,
   positionMillis: 0,
   songIds: [],
@@ -60,25 +60,25 @@ export const playerSlice = createSlice({
     setSongIds: (state, action: PayloadAction<{ songIds: number[] }>) => {
       state.songIds = action.payload.songIds;
     },
-    setDuration: (state, action: PayloadAction<number>) => {
-      state.durationMillis = action.payload;
-    },
-    setPosition: (state, action: PayloadAction<number>) => {
-      state.positionMillis = action.payload;
+
+    updatePlayStatus: (
+      state,
+      action: PayloadAction<{
+        durationMillis: number;
+        positionMillis: number;
+        isPlaying: boolean;
+      }>,
+    ) => {
+      const { durationMillis, positionMillis, isPlaying } = action.payload;
+      state.durationMillis = durationMillis;
+      state.positionMillis = positionMillis;
+      state.isPlaying = isPlaying;
     },
   },
   extraReducers: (builder) => {
     // 初始化加载资源
     builder.addCase(playerLoadShow.fulfilled, (state, action) => {
       return { ...state, ...action.payload, playStatus: 'initialed' };
-    });
-    // 调用播放，就是播放中
-    builder.addCase(playSound.fulfilled, (state) => {
-      state.playStatus = 'playing';
-    });
-    // 暂停
-    builder.addCase(playPause.fulfilled, (state) => {
-      state.playStatus = 'pause';
     });
   },
 });
