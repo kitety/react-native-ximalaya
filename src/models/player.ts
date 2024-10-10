@@ -1,5 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { debounce } from 'lodash-es';
 import { getShow } from '~/api/player';
+import { saveProgram } from '~/config/realm';
 import soundManager from '~/config/sound';
 import { IPlayerItem } from '~/types/player';
 
@@ -42,6 +44,8 @@ export const playSound = createAsyncThunk('player/playSound', () =>
 
 // 停止资源
 export const stopSound = createAsyncThunk('player/stopSound', () => stop());
+// save ProgramDocument
+const saveProgramDocument = debounce(saveProgram, 800);
 
 export const playerSlice = createSlice({
   name: 'player',
@@ -83,6 +87,15 @@ export const playerSlice = createSlice({
       state.durationMillis = durationMillis;
       state.positionMillis = positionMillis;
       state.isPlaying = isPlaying;
+      // 同步realm存储
+      const data = {
+        id: state.id,
+        title: state.title,
+        thumbnailUrl: state.thumbnailUrl,
+        currentTime: state.positionMillis,
+        duration: state.durationMillis,
+      };
+      // saveProgramDocument(data);
     },
   },
   extraReducers: (builder) => {
