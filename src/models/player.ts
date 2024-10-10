@@ -95,7 +95,7 @@ export const playerSlice = createSlice({
         currentTime: state.positionMillis,
         duration: state.durationMillis,
       };
-      // saveProgramDocument(data);
+      saveProgramDocument(data);
     },
   },
   extraReducers: (builder) => {
