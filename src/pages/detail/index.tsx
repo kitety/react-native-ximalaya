@@ -1,7 +1,7 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { useReactive } from 'ahooks';
 import clsx from 'clsx';
-import Barrage, { IMessage } from 'components/barrage';
+import Barrage from 'components/barrage';
 import { AVPlaybackStatus } from 'expo-av';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useCallback, useEffect, useRef } from 'react';
@@ -12,12 +12,10 @@ import soundManager from '~/config/sound';
 import { useAppDispatch, useAppSelector } from '~/hooks/state';
 import { playPause, playSound, playerLoadShow } from '~/models/player';
 import { ModalStackNavigation, ModalStackParamList } from '~/navigator';
+import { IMessage } from '~/types/detail';
 import { viewportWidth } from '~/utils';
+import { imageWidth, paddingTop, scaleValue } from './const';
 import PlaySlider from './playSlider';
-
-const imageWidth = 180;
-export const paddingTop = (viewportWidth - imageWidth) / 2;
-const scaleValue = viewportWidth / imageWidth;
 
 const originBarrageTexts = [
   '弹幕1',

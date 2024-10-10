@@ -1,13 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
-import { paddingTop } from '~/pages/detail';
+import { paddingTop } from '~/pages/detail/const';
+import { IMessage } from '~/types/detail';
 import BarrageItem from './item';
 
-export interface IMessage {
-  id: string;
-  text: string;
-  isShown: boolean;
-}
 export interface IBarrage extends IMessage {
   trackIndex: number;
   isFree?: boolean;
